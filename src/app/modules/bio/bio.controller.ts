@@ -107,6 +107,18 @@ const getAllProjects = catchAsync(async (req, res) => {
         data: result,
     });
 });
+
+const getSingleProject = catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const result = await BioServices.getSingleProjectFromDB(id)
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: 'Single Project retrieved successfully',
+        data: result,
+    });
+})
+
 export const BioControllers = {
     createSkill,
     getAllSkills,
@@ -114,5 +126,6 @@ export const BioControllers = {
     updateSkill,
     deleteSkill,
     createProject,
-    getAllProjects
+    getAllProjects,
+    getSingleProject
 }

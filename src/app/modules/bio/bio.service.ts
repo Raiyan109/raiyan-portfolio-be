@@ -70,6 +70,11 @@ const getAllProjectsFromDB = async () => {
     return result;
 };
 
+const getSingleProjectFromDB = async (id: string) => {
+    const result = await ProjectModel.findById(id)
+    return result
+}
+
 
 export const BioServices = {
     createSkillIntoDB,
@@ -78,5 +83,6 @@ export const BioServices = {
     updateSkillIntoDB,
     deleteSkillFromDB,
     createProjectIntoDB,
-    getAllProjectsFromDB
+    getAllProjectsFromDB,
+    getSingleProjectFromDB
 }

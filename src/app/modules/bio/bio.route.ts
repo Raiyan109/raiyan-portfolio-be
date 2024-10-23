@@ -26,6 +26,11 @@ router.get(
 );
 
 router.get(
+    '/project/:id',
+    BioControllers.getSingleProject,
+);
+
+router.get(
     '/skill',
     BioControllers.getAllSkills,
 );
