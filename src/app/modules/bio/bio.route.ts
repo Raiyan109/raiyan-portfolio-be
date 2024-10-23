@@ -4,6 +4,9 @@ import { BioControllers } from './bio.controller';
 
 const router = express.Router();
 
+
+// Skills
+
 router.post(
     '/skill',
     BioControllers.createSkill,
@@ -28,6 +31,16 @@ router.get(
 );
 
 
+// Projects
+router.post(
+    '/project',
+    BioControllers.createProject,
+);
+
+router.get(
+    '/project',
+    BioControllers.getAllProjects,
+);
 
 
 

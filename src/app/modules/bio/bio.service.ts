@@ -1,7 +1,9 @@
 import httpStatus from "http-status";
 import AppError from "../../errors/AppError";
-import { SkillModel } from "./bio.model";
-import { TSkills } from "./bio.interface";
+import { ProjectModel, SkillModel } from "./bio.model";
+import { TProjects, TSkills } from "./bio.interface";
+
+// Skills
 
 const createSkillIntoDB = async (skill: TSkills) => {
     const isSkillExists = await SkillModel.findOne({ name: skill.title })
@@ -52,10 +54,29 @@ const deleteSkillFromDB = async (id: string) => {
 };
 
 
+// Projects
+
+const createProjectIntoDB = async (project: TProjects) => {
+    const isProjectExists = await ProjectModel.findOne({ name: project.title })
+    if (isProjectExists) {
+        throw new AppError(httpStatus.CONFLICT, 'This project is already exists!');
+    }
+    const result = await ProjectModel.create(project)
+    return result
+}
+
+const getAllProjectsFromDB = async () => {
+    const result = await ProjectModel.find()
+    return result;
+};
+
+
 export const BioServices = {
     createSkillIntoDB,
     getAllSkillsFromDB,
     getSingleSkillFromDB,
     updateSkillIntoDB,
-    deleteSkillFromDB
+    deleteSkillFromDB,
+    createProjectIntoDB,
+    getAllProjectsFromDB
 }

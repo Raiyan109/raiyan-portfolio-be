@@ -16,6 +16,7 @@ exports.BioServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../errors/AppError"));
 const bio_model_1 = require("./bio.model");
+// Skills
 const createSkillIntoDB = (skill) => __awaiter(void 0, void 0, void 0, function* () {
     const isSkillExists = yield bio_model_1.SkillModel.findOne({ name: skill.title });
     if (isSkillExists) {
@@ -52,10 +53,25 @@ const deleteSkillFromDB = (id) => __awaiter(void 0, void 0, void 0, function* ()
     const result = yield bio_model_1.SkillModel.findByIdAndDelete(id);
     return result;
 });
+// Projects
+const createProjectIntoDB = (project) => __awaiter(void 0, void 0, void 0, function* () {
+    const isProjectExists = yield bio_model_1.ProjectModel.findOne({ name: project.title });
+    if (isProjectExists) {
+        throw new AppError_1.default(http_status_1.default.CONFLICT, 'This project is already exists!');
+    }
+    const result = yield bio_model_1.ProjectModel.create(project);
+    return result;
+});
+const getAllProjectsFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bio_model_1.ProjectModel.find();
+    return result;
+});
 exports.BioServices = {
     createSkillIntoDB,
     getAllSkillsFromDB,
     getSingleSkillFromDB,
     updateSkillIntoDB,
-    deleteSkillFromDB
+    deleteSkillFromDB,
+    createProjectIntoDB,
+    getAllProjectsFromDB
 };

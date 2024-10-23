@@ -4,6 +4,7 @@ import sendResponse from "../../utils/sendResponse";
 import { BlogServices } from "../blog/blog.service";
 import { BioServices } from "./bio.service";
 
+// Skills
 const createSkill = catchAsync(async (req, res) => {
 
     const result = await BioServices.createSkillIntoDB(req.body);
@@ -72,10 +73,46 @@ const deleteSkill = catchAsync(async (req, res) => {
     });
 });
 
+// Projects
+
+const createProject = catchAsync(async (req, res) => {
+
+    const result = await BioServices.createProjectIntoDB(req.body);
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: 'Project added successfully',
+        data: result,
+    });
+});
+
+const getAllProjects = catchAsync(async (req, res) => {
+    const result = await BioServices.getAllProjectsFromDB();
+
+    // Check if the database collection is empty or no matching data is found
+    if (!result || result.length === 0) {
+        return sendResponse(res, {
+            success: false,
+            statusCode: httpStatus.NOT_FOUND,
+            message: 'No data found.',
+            data: [],
+        });
+    }
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: 'Projects retrieved successfully',
+        data: result,
+    });
+});
 export const BioControllers = {
     createSkill,
     getAllSkills,
     getSingleSkill,
     updateSkill,
-    deleteSkill
+    deleteSkill,
+    createProject,
+    getAllProjects
 }

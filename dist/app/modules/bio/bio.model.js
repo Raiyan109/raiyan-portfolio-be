@@ -27,16 +27,25 @@ const projectSchema = new mongoose_1.Schema({
         required: true
     },
     features: {
-        type: String,
+        type: [String],
         required: true
     },
     category: {
         type: [String],
         required: true
     },
-    links: {
-        type: [String],
+    feLive: {
+        type: String,
         required: true
+    },
+    beLive: {
+        type: String,
+    },
+    feGit: {
+        type: String,
+    },
+    beGit: {
+        type: String,
     },
     technologies: {
         type: [String],

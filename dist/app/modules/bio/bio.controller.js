@@ -18,6 +18,7 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const blog_service_1 = require("../blog/blog.service");
 const bio_service_1 = require("./bio.service");
+// Skills
 const createSkill = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield bio_service_1.BioServices.createSkillIntoDB(req.body);
     (0, sendResponse_1.default)(res, {
@@ -75,10 +76,40 @@ const deleteSkill = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, vo
         data: result,
     });
 }));
+// Projects
+const createProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bio_service_1.BioServices.createProjectIntoDB(req.body);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Project added successfully',
+        data: result,
+    });
+}));
+const getAllProjects = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bio_service_1.BioServices.getAllProjectsFromDB();
+    // Check if the database collection is empty or no matching data is found
+    if (!result || result.length === 0) {
+        return (0, sendResponse_1.default)(res, {
+            success: false,
+            statusCode: http_status_1.default.NOT_FOUND,
+            message: 'No data found.',
+            data: [],
+        });
+    }
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Projects retrieved successfully',
+        data: result,
+    });
+}));
 exports.BioControllers = {
     createSkill,
     getAllSkills,
     getSingleSkill,
     updateSkill,
-    deleteSkill
+    deleteSkill,
+    createProject,
+    getAllProjects
 };
