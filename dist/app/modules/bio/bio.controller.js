@@ -104,6 +104,16 @@ const getAllProjects = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
         data: result,
     });
 }));
+const getSingleProject = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield bio_service_1.BioServices.getSingleProjectFromDB(id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: 'Single Project retrieved successfully',
+        data: result,
+    });
+}));
 exports.BioControllers = {
     createSkill,
     getAllSkills,
@@ -111,5 +121,6 @@ exports.BioControllers = {
     updateSkill,
     deleteSkill,
     createProject,
-    getAllProjects
+    getAllProjects,
+    getSingleProject
 };

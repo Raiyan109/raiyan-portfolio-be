@@ -66,6 +66,10 @@ const getAllProjectsFromDB = () => __awaiter(void 0, void 0, void 0, function* (
     const result = yield bio_model_1.ProjectModel.find();
     return result;
 });
+const getSingleProjectFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield bio_model_1.ProjectModel.findById(id);
+    return result;
+});
 exports.BioServices = {
     createSkillIntoDB,
     getAllSkillsFromDB,
@@ -73,5 +77,6 @@ exports.BioServices = {
     updateSkillIntoDB,
     deleteSkillFromDB,
     createProjectIntoDB,
-    getAllProjectsFromDB
+    getAllProjectsFromDB,
+    getSingleProjectFromDB
 };
